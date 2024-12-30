@@ -24,8 +24,8 @@ const testTime = [
   '19',
   '23',
   '24',// ?
-  '-5',
   '25',// ?
+  '-5',
   '',
   'qwerty',
 ]
@@ -67,7 +67,7 @@ const testType = [
   '10',
   ''
 ]
-/*
+
 for (const number of testPair) {// Парне чи непарне число
   test(`Find type of number: ${number}`, async () => {
     FunctionsPOM.sortByPair(number);
@@ -109,4 +109,3 @@ for (const number of testType) {// Визначення типу числа
     FunctionsPOM.findTypeNumber(number);
   });
 }
-*/

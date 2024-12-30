@@ -42,7 +42,7 @@ export class Functions {
     if (number >= 12 && number <= 18) {
       console.log(messageDay);
     }
-    if (number > 18 && number <= 24) {
+    if (number > 18 && number <= 24) {// 24?
       console.log(messageEvening);
     }
   }
