@@ -1,111 +1,102 @@
 import { test } from '@playwright/test';
-import { Functions } from '../pom/functions-pom';
+import { Functions } from '../pom/hw-7-pom';
 
 const FunctionsPOM = new Functions();
 
 const testPair = [
-  '1',
-  '2',
-  '100',
-  '-5',
-  '0',
-  '',
-  'qwerty',
+  1,
+  2,
+  100,
+  -5,
+  0,
 ]
 
 const testTime = [
-  '0',//?
-  '1',
-  '11',
-  '12',
-  '13',
-  '17',
-  '18',
-  '19',
-  '23',
-  '24',// ?
-  '25',// ?
-  '-5',
-  '',
-  'qwerty',
+  0,//?
+  1,
+  11,
+  12,
+  13,
+  17,
+  18,
+  19,
+  23,
+  24,// ?
+  25,// ?
+  -5,
 ]
 
 const testGrade = [
-  '49',
-  '50',
-  '51',
-  '0',
-  '-5',
-  '',
-  'qwerty',
+  49,
+  50,
+  51,
+  0,
+  -5,
 ]
 
 const testAge = [
-  '0',
-  '-5',
-  '',
-  'qwerty',
+  0,
+  -5,
 ]
 
 const testCompare = [
-  { num1st: '5', num2nd: '10' },
-  { num1st: '24', num2nd: '12' },
-  { num1st: '55', num2nd: '55' },
-  { num1st: '55', num2nd: '-12' },
+  { num1st: 5, num2nd: 10 },
+  { num1st: 24, num2nd: 12 },
+  { num1st: 55, num2nd: 55 },
+  { num1st: 55, num2nd: -12 },
 ]
 
 const testColor = [
   'зелений',
   'жовТИй',
   'Червоний',
-  '',
+  
 ]
 
 const testType = [
-  '0',
-  '-5',
-  '10',
-  ''
+  0,
+  -5,
+  10,
 ]
 
 for (const number of testPair) {// Парне чи непарне число
   test(`Find type of number: ${number}`, async () => {
-    FunctionsPOM.sortByPair(number);
+    FunctionsPOM.isPairNumber(number);
   });
 }
 
 for (const time of testTime) {// Привітання за часом
   test(`Use function with the following hour: ${time}`, async () => {
-    FunctionsPOM.sortByTime(time);
+    FunctionsPOM.isTimeOfDay(time);
   });
 }
 
 for (const grade of testGrade) {// Перевірка оцінки
   test(`Use function with the following grade: ${grade}`, async () => {
-    FunctionsPOM.sortByGrade(grade);
+    FunctionsPOM.isCheckExam(grade);
   });
 }
 
 for (const age of testAge) {// Голосування
   test(`Find permission to vote with age ${age}`, async () => {
-    FunctionsPOM.sortByAge(age);
+    FunctionsPOM.isAccessToVote(age);
   });
 }
 
 for (const numbers of testCompare) {// Порівняння чисел
   test(`Compare ${numbers.num1st} and ${numbers.num2nd}`, async () => {
-    FunctionsPOM.compareNumbers(numbers.num1st, numbers.num2nd);
+    FunctionsPOM.isNumbersCompare(numbers.num1st, numbers.num2nd);
   });
 }
 
 for (const color of testColor) {// Дорога і світлофор
   test(`Find way with color: ${color}`, async () => {
-    FunctionsPOM.checkColor(color);
+    FunctionsPOM.isTrafficLights(color);
   });
 }
 
 for (const number of testType) {// Визначення типу числа
   test(`Find type of number ${number}`, async () => {
-    FunctionsPOM.findTypeNumber(number);
+    FunctionsPOM.isNumbersType(number);
   });
 }
