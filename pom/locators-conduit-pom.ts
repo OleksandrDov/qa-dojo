@@ -73,13 +73,13 @@ export class Locators {
     await this.LocatorsPOM.pause();
   }
 
-  async gotoSignInPage() {
-    await this.LocatorsPOM.goto('https://demo.learnwebdriverio.com/login');
-    await expect(this.field_email).toBeVisible();
+  async gotoHomePage(URL: string, locator: Locator) {
+    await this.LocatorsPOM.goto(URL);
+    await expect(locator).toBeVisible();
   }
 
   async signIn(email: string, password: string) {
-    await this.gotoSignInPage();
+    await this.gotoHomePage('https://demo.learnwebdriverio.com/login', this.field_email);
     await this.field_email.fill(email);
     await this.field_password.fill(password);
     await this.btn_signIn.click();
@@ -103,7 +103,5 @@ export class Locators {
   async checkArticle(title: string, text: string) {
     await expect(this.articleTitle).toContainText(title);
     await expect(this.articleTextarea).toContainText(text);
-    const pupil = 'Anastasiya';
-  console.log('${pupil} Came to school');
   }
 }
