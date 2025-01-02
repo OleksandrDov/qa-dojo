@@ -1,101 +1,134 @@
-/*
-треба подумати, як зробити ці функції через true / false
-і дописати експекти у тести на true / false (скоріш за все зробити це у об'єкт)
-*/
+export const texts = {
+  messagePairTrue: 'Число парне.',
+  messagePairFalse: 'Число непарне.',
+  messageMorning: 'Доброго ранку!',
+  messageDay: 'Доброго дня!',
+  messageEvening: 'Доброго вечора!',
+  messageError: 'Введено невалідне значення:',
+  messagePassed: 'Тест складено',
+  messageFailed: 'Тест не складено',
+  messageVotingYes: 'Ви можете голосувати.',
+  messageVotingNo: 'Ви ще не можете голосувати.',
+  message1stLarger: 'Перше число більше.',
+  message1stFewer: 'Друге число більше.',
+  messageBothEqual: 'Числа рівні',
+  messageGo:'Переходьте!',
+  messageReady: 'Підготуйтеся!',
+  messageStay:'Зачекайте!',
+  messageAboveZero: 'Число додатнє.',
+  messageBelowZero: 'Число від’ємне.',
+  messageEqualZero: 'Число дорівнює нулю.',
+}
+
+interface Results {
+  booleanType: boolean;
+  message: string;
+}
 
 export class Functions {
   isPairNumber(value: number) {
-    const result = value % 2;
-    if (result === 0) {
-      console.log('Число парне.');
-      return true;
+    const pairNumber = value % 2;
+    let results: Results;
+    if (pairNumber === 0) {
+      results = { booleanType: true, message: texts.messagePairTrue };
     } else {
-      console.log('Число непарне.');
-      return false;
+      results = { booleanType: false, message: texts.messagePairFalse };
     }
+    return results;
   }
 
   isTimeOfDay(value: number) {
-    if (value > 23) {
-      throw Error(`Введено невалідне значення часу: ${value}`);
-    }
-    if (value < 12) {
-      console.log('Доброго ранку!');
+    let results: Results;
+    if (value > 23 || value < 0) {
+      const error = texts.messageError + value;
+      results = { booleanType: false, message: error };
+      return results;
     }
     if (value >= 12 && value <= 18) {
-      console.log('Доброго дня!');
+      results = { booleanType: true, message: texts.messageDay };
     }
-    if (value > 18 && value <= 23 || value === 0) {
-      console.log('Доброго вечора!');
+    else if (value > 18 && value <= 23 || value === 0) {
+      results = { booleanType: true, message: texts.messageEvening };
     }
+    else {// value < 12
+      results = { booleanType: true, message: texts.messageMorning };
+    }
+    return results;
   }
 
   isCheckExam(value: number) {
-    if (value < 0) {
-      throw Error(`Введено невалідне значення часу: ${value}`);
-    }
+    let results: Results;
     if (value >= 50 && value <= 100) {
-      console.log('Тест складено');
-      return true;
+      results = { booleanType: true, message: texts.messagePassed };
+    } else if (value >= 0 && value < 50) {
+      results = { booleanType: false, message: texts.messageFailed };
+    } else {// value < 0
+      const error = texts.messageError + value;
+      results = { booleanType: false, message: error };
+      return results;
     }
-    if (value >= 0 && value < 50) {
-      console.log('Тест не складено');
-      return false;
-    }
+    return results;
   }
 
   isAccessToVote(value: number) {
-    if (value === 0 || value < 0 || value >= 151) {
-      throw Error(`Введено невалідне значення віку: ${value}`);
+    let results: Results;
+    if (value >= 18 && value <= 130) {
+      results = { booleanType: true, message: texts.messageVotingYes };
+    } else if (value <= 0 || value > 130) {
+      const error = texts.messageError + value;
+      results = { booleanType: false, message: error };
+      return results;
+    } else {// value > 0 && value < 18
+      results = { booleanType: false, message: texts.messageVotingNo };
     }
-    if (value >= 18 && value <= 150) {
-      console.log('Ви можете голосувати.');
-      return true;
-    }
-    if (value > 0 && value < 18) {
-      console.log('Ви ще не можете голосувати.');
-      return false;
-    }
+    return results;
   }
 
-  isNumbersCompare(value1: number, value2: number) {
-    if (value1 > value2) {
-      console.log('Перше число більше.');
+  isNumbersCompare(value1: number | BigInt, value2: number | BigInt) {
+    let results: Results;
+    if (!isFinite(Number(value1)) || !isFinite(Number(value2))) {
+      const error = texts.messageError + `${value1} or ${value2}`;
+      results = { booleanType: false, message: error };
+      return results;
+    } else if (value1 > value2) {
+      results = { booleanType: true, message: texts.message1stLarger };
+    } else if (value1 < value2) {
+      results = { booleanType: false, message: texts.message1stFewer };
+    } else {// value1 === value2
+      results = { booleanType: true, message: texts.messageBothEqual };
     }
-    if (value1 < value2) {
-      console.log('Друге число більше.');
-    }
-    if (value1 === value2) {
-      console.log('Числа рівні');
-    }
+    return results;
   }
 
   isTrafficLights(value: string) {
-    if (value === '') {// не потрібно юзати undefined для стрінги 
-      throw Error(`Введено невалідне значення кольору: ${value}`);
+    const color = value.toLowerCase();
+    let results: Results;
+    if (value === '') {
+      // не потрібно юзати undefined для стрінги 
+      const error = texts.messageError + value;
+      results = { booleanType: false, message: error };
+      return results;
     } else {
-      const color = value.toLowerCase();
       if (color === 'зелений') {
-        console.log('Переходьте!');
+        results = { booleanType: true, message: texts.messageGo };
+      } else if (color === 'жовтий') {
+        results = { booleanType: true, message: texts.messageReady };
+      } else {// color === 'червоний'
+        results = { booleanType: false, message: texts.messageStay };
       }
-      if (color === 'жовтий') {
-        console.log('Підготуйтеся!');
-      }
-      if (color === 'червоний') {
-        console.log('Зачекайте!');
-      }
+      return results;
     }
   }
 
   isNumbersType(value: number) {
+    let results: Results;
     if (value > 0) {
-      console.log('Число додатнє.');
+      results = { booleanType: true, message: texts.messageAboveZero };
+    } else if (value < 0) {
+      results = { booleanType: true, message: texts.messageBelowZero };
+    } else {// value === 0
+      results = { booleanType: false, message: texts.messageEqualZero };
     }
-    if (value < 0) {
-      console.log('Число від’ємне.');
-    }
-    if (value === 0) {
-      console.log('Число дорівнює нулю.');
-    }
+    return results;
   }
 }
