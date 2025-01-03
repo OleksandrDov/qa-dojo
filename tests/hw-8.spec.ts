@@ -8,15 +8,14 @@ test.beforeEach(async ({page}) => {
   await LocatorsPOM.gotoHomePage();
 });
 
-test('The rotator contains more than 2 elements', async () => {
-  //await LocatorsPOM.
-});
+// test('The rotator contains some amount of slides', async () => {
+//   const results = await LocatorsPOM.slidersCount(2);
+//   expect(results).toBe(true);
+// });
 
 test('A user can open a page via the rotator', async () => {
-  //await LocatorsPOM.
-//  - перевірити що в каруселі знаходиться більше 2х елементів (використовуйте locator().all() і length)
-//  - натиснути 2 рази на scroll каруселі 
-//  - клікнути на контент каруселі 
-//  - перевірити що навігація успішна  (подумайте як) 
-//  - Створити PR з тестом
+  await LocatorsPOM.clickTargetSlider('Corsair');// натиснути 2 рази на scroll каруселі?
+// клікнути на контент каруселі 
+// перевірити що навігація успішна (подумайте як) 
+// Створити PR з тестом
 });
